@@ -1,0 +1,56 @@
+<div
+  class="my-10 border-1 border-gray-100 shadow-md rounded-sm overflow-hidden text-xl bg-white">
+  <div
+    class="p-4"
+    [ngClass]="{
+      'bg-green-300': isGameFinished,
+      'bg-red-200': isTextWrong
+    }">
+    <div class="dark:text-gray-400">
+      <app-timer [timerEvents]="timerEvents.asObservable()"></app-timer>
+    </div>
+
+    <div class="text-xl">
+      <span
+        class="text-gray-600"
+        [ngClass]="{ 'text-black': isGameFinished }"
+        >{{ correctText }}</span
+      >
+      <span class="current-container bg-green-300">{{ currentText }}</span>
+      <span class="wrong-container bg-red-300">{{ wrongText }}</span>
+      <span class="untouched-container">{{ untouchedText }}</span>
+    </div>
+
+    <input
+      #input
+      (input)="onInput($event)"
+      class="text-lg border-b w-full outline-none disabled:bg-inherit text-gray-600 bg-transparent"
+      [ngClass]="{ 'border-gray-600': isGameFinished }"
+      [disabled]="isGameFinished"
+      placeholder="Start!" />
+    <div class="flex mt-2">
+      <span class="flex-1"
+        >{{ accuracyStatus.accuracy.toFixed(2) }} % Accuracy</span
+      >
+      <span class="flex-1">{{ WPM.toFixed(2) }} WPM</span>
+    </div>
+  </div>
+
+  <div class="p-4">
+    <button
+      (click)="pauseGame()"
+      class="text-base mr-2 px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-sm hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+      Pause
+    </button>
+    <button
+      (click)="restartGame()"
+      class="text-base mr-2 px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-sm hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+      Restart
+    </button>
+    <button
+      (click)="nextGame()"
+      class="text-base px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-300 rounded-sm hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+      Next
+    </button>
+  </div>
+</div>
